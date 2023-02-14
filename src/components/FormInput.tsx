@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import './formInput.css';
 
-const FormInput = (props) => {
+const FormInput = (props: { name: string | undefined; placeholder: string | undefined; }) => {
+
+    const onChange = (e: ChangeEvent) => {
+        
+    }
+
     return (
         <div className='formInput'>
-            <label>Username</label>
-            <input placeholder={props.placeholder} />
+            <input name={props.name} placeholder={props.placeholder} />
         </div>
     );
 }
