@@ -1,15 +1,15 @@
 import React, { ChangeEvent } from 'react';
 import './formInput.css';
 
-const FormInput = (props: { name: string | undefined; placeholder: string | undefined; }) => {
+const FormInput = (props: { [x: string]: any; name?: any; label?: any; errorMessage?: any; onChange?: any; id?: any; }) => {
 
-    const onChange = (e: ChangeEvent) => {
-        
-    }
+    const {label, errorMessage, onChange, id, ...inputProps} = props;
 
     return (
         <div className='formInput'>
-            <input name={props.name} placeholder={props.placeholder} />
+            <label>{label}</label>
+            <input {...inputProps} onChange={onChange} />
+            <span>{errorMessage}</span>
         </div>
     );
 }
