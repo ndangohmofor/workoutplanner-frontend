@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
-import './App.css'; 
-import Register from './components/Register';
+import React, { useEffect } from "react";
+import "./App.css";
+import Register from "./components/Register";
 
 function App() {
   return (
@@ -9,5 +9,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
