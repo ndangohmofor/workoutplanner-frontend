@@ -1,16 +1,20 @@
-import React, { ChangeEvent, SyntheticEvent, useState } from "react";
-import { Button } from "react-bootstrap";
+import React, { SyntheticEvent, useState } from "react";
+import Button from "react-bootstrap/Button";
 import {
   registration,
   registrationFormInputs,
 } from "../interfaces/registration";
 import FormInput from "./FormInput";
+import axios from "axios";
+
+const BACKENDURL = "http://localhost:8090";
+const REGISTER = "api/v1/registration";
 
 const Register = () => {
   const [values, setValues] = useState<registration>({
     username: "",
     email: "",
-    birthday: "",
+    role: "user",
     password: "",
     confirmPassword: "",
   });
@@ -44,7 +48,8 @@ const Register = () => {
       errorMessage:
         "Password should be between 8 - 20 characters and include at least 1 letter, 1 number and 1 spcial character.",
       label: "Password",
-      pattern: "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,20}$",
+      pattern:
+        "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$",
       required: true,
     },
     {
@@ -61,6 +66,10 @@ const Register = () => {
 
   const handleSubmit = (e: SyntheticEvent): void => {
     e.preventDefault();
+    axios
+      .post(`${BACKENDURL}/${REGISTER}`, values)
+      .then((res) => res)
+      .catch((err) => err);
   };
 
   const onChange = (e: { target: { name: any; value: any } }): void => {
