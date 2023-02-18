@@ -7,9 +7,6 @@ import {
 import FormInput from "./FormInput";
 import axios from "axios";
 
-const BACKENDURL = "http://localhost:8090";
-const REGISTER = "api/v1/registration";
-
 const Register = () => {
   const [values, setValues] = useState<registration>({
     username: "",
@@ -67,7 +64,10 @@ const Register = () => {
   const handleSubmit = (e: SyntheticEvent): void => {
     e.preventDefault();
     axios
-      .post(`${BACKENDURL}/${REGISTER}`, values)
+      .post(
+        `${process.env.REACT_APP_BACKEND_URL}/${process.env.REACT_APP_REGISTER_ENDPOINT}`,
+        values
+      )
       .then((res) => res)
       .catch((err) => err);
   };
