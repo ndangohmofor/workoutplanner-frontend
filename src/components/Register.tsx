@@ -19,9 +19,9 @@ const Register = () => {
     },
   });
 
+  console.log(`${process.env.REACT_APP_BACKEND_URL}`);
   const onSubmit = (data: any): void => {
     //e.preventDefault();
-    console.log(`${process.env.REACT_APP_BACKEND_URL}`);
     axios
       .post(
         `${process.env.REACT_APP_BACKEND_URL}/${process.env.REACT_APP_REGISTER_ENDPOINT}`,
