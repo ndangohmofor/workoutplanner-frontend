@@ -1,93 +1,112 @@
-import React, { SyntheticEvent, useState } from "react";
+import React from "react";
 import Button from "react-bootstrap/Button";
-import {
-  registration,
-  registrationFormInputs,
-} from "../interfaces/registration";
-import FormInput from "./FormInput";
+
 import axios from "axios";
+import { useForm } from "react-hook-form";
 
 const Register = () => {
-  const [values, setValues] = useState<registration>({
-    username: "",
-    email: "",
-    role: "user",
-    password: "",
-    confirmPassword: "",
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm({
+    defaultValues: {
+      userName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
   });
 
-  const inputs: registrationFormInputs[] = [
-    {
-      id: 1,
-      name: "username",
-      type: "text",
-      placeholder: "Username",
-      errorMessage:
-        "Username should be 5 - 15 characters and should include one special character!",
-      label: "Username",
-      pattern: "^[a-zA-z0-9]{5,15}$",
-      required: true,
-    },
-    {
-      id: 2,
-      name: "email",
-      type: "email",
-      placeholder: "Email",
-      errorMessage: "This should be a valid email address",
-      label: "Email",
-      required: true,
-    },
-    {
-      id: 3,
-      name: "password",
-      type: "password",
-      placeholder: "Password",
-      errorMessage:
-        "Password should be between 8 - 20 characters and include at least 1 letter, 1 number and 1 spcial character.",
-      label: "Password",
-      pattern:
-        "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$",
-      required: true,
-    },
-    {
-      id: 4,
-      name: "confirmPassword",
-      type: "password",
-      placeholder: "Confirm Password",
-      errorMessage: "Passwords do not match",
-      label: "Confirm Password",
-      pattern: values.password,
-      required: true,
-    },
-  ];
-
-  const handleSubmit = (e: SyntheticEvent): void => {
-    e.preventDefault();
+  const onSubmit = (data: any): void => {
+    //e.preventDefault();
+    console.log(`${process.env.REACT_APP_BACKEND_URL}`);
     axios
       .post(
         `${process.env.REACT_APP_BACKEND_URL}/${process.env.REACT_APP_REGISTER_ENDPOINT}`,
-        values
+        data
       )
       .then((res) => res)
       .catch((err) => err);
   };
 
-  const onChange = (e: { target: { name: any; value: any } }): void => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
-
   return (
     <div className="register">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <h1>Register</h1>
-        {inputs.map((input) => (
-          <FormInput
-            key={input.id}
-            {...input}
-            value={values[input.name as keyof registration]}
-            onChange={onChange}
+        <div className="formInput form-group">
+          <input
+            className="form-control"
+            {...register("userName", {
+              required:
+                "Username should be 5 - 15 characters and should include one special character!",
+              minLength: {
+                value: 5,
+                message: "Minimum length should be 5 characters",
+              },
+              maxLength: {
+                value: 15,
+                message: "Maximum length should be 15 characters",
+              },
+            })}
+            placeholder="USer Name"
           />
-        ))}
+          <p>{errors.userName?.message}</p>
+        </div>
+        <div className="formInput form-group">
+          <input
+            className="form-control"
+            {...register("email", {
+              required: "Provide a valid email address",
+            })}
+            type="email"
+            placeholder="Email"
+          />
+          <p>{errors?.email?.message}</p>
+        </div>
+        <div className="formInput form-group">
+          <input
+            className="form-control"
+            {...register("password", {
+              required:
+                "Password should be between 8 - 20 characters and include at least 1 letter, 1 number and 1 spcial character.",
+              minLength: {
+                value: 8,
+                message: "Password should be at least 8 characters",
+              },
+              maxLength: {
+                value: 20,
+                message: "Password should not be more than 20 characters",
+              },
+              pattern: {
+                value:
+                  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$/,
+                message:
+                  "Include at least 1 letter, 1 number and 1 spcial character.",
+              },
+            })}
+            type="password"
+            placeholder="Password"
+          />
+          <p>{errors?.password?.message}</p>
+        </div>
+        <div className="formInput form-group">
+          <input
+            className="form-control"
+            {...register("confirmPassword", {
+              required: "Passwords must match",
+              validate: (value: string) => {
+                if (watch("password") !== value) {
+                  return "Passwords do not match";
+                }
+              },
+            })}
+            type="password"
+            placeholder="Confirm Password"
+          />
+          <p>{errors?.confirmPassword?.message}</p>
+        </div>
         <Button type="submit">Submit</Button>
       </form>
     </div>

@@ -3,6 +3,7 @@
   flex-direction: column;
   width: 280px;
   align-content: center;
+  margin: 20px;
 }
 
 input {
@@ -15,7 +16,7 @@ input {
 span {
   font-size: 12px;
   padding: 3px;
-  color: red;
+  color: black;
   display: none;
 }
 
