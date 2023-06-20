@@ -12,7 +12,7 @@ const Register = () => {
     watch,
   } = useForm({
     defaultValues: {
-      userName: "",
+      username: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -38,7 +38,7 @@ const Register = () => {
         <div className="formInput form-group">
           <input
             className="form-control"
-            {...register("userName", {
+            {...register("username", {
               required:
                 "Username should be 5 - 15 characters and should include one special character!",
               minLength: {
@@ -50,9 +50,9 @@ const Register = () => {
                 message: "Maximum length should be 15 characters",
               },
             })}
-            placeholder="USer Name"
+            placeholder="User Name"
           />
-          <p>{errors.userName?.message}</p>
+          <p>{errors.username?.message}</p>
         </div>
         <div className="formInput form-group">
           <input
