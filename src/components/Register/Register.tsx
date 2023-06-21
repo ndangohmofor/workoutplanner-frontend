@@ -15,8 +15,8 @@ const Register = () => {
   } = useForm({
     defaultValues: {
       username: "",
-      fname: "",
-      lname: "",
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -64,7 +64,7 @@ const Register = () => {
             <label htmlFor="fname">First Name</label>
             <input
               className="form-control"
-              {...register("fname", {
+              {...register("firstName", {
                 required: "First name is required!",
               })}
               placeholder="First Name"
@@ -75,7 +75,7 @@ const Register = () => {
             <label htmlFor="lname">Last Name</label>
             <input
               className="form-control"
-              {...register("lname", {
+              {...register("lastName", {
                 required: "Last name is required!",
               })}
               placeholder="Last Name"
