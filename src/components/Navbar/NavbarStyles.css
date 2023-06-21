@@ -1,4 +1,4 @@
-nav {
+Nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -10,7 +10,31 @@ nav {
     width: 100%;
 }
 
-nav > h2 {
+nav.bg-body-tertiary {
+    background-color: #251552 !important;
+    border-color: #080808 !important;
+}
+
+a.navbar-brand {
+    color: #fff;
+    font-weight: 900;
+}
+
+a.nav-link {
+    color: #fff;
+    font-weight: bold;
+}
+
+a.nav-link.active {
+    color: #408d76 !important;
+}
+
+a.nav-link:hover, a.nav-link:after {
+    color: #408d76 !important;
+    text-decoration-line: underline;
+}
+
+Nav > h2 {
     display: inline;
     font-size: medium;
     font-weight: 800;
@@ -27,7 +51,7 @@ nav > h2 {
     width: 100%;
 }
 
-nav a img {
+Nav a img {
     height: 60px;
     border-radius: 15px;
     margin-right: 20px;
