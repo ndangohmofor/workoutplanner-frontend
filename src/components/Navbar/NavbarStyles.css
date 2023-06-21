@@ -20,6 +20,10 @@ a.navbar-brand {
     font-weight: 900;
 }
 
+a.navbar-brand:hover {
+    color: #418f41 !important;
+}
+
 a.nav-link {
     color: #fff;
     font-weight: bold;
