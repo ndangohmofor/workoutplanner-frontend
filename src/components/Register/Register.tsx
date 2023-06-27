@@ -36,7 +36,6 @@ const Register = () => {
     },
   });
 
-  console.log(`${process.env.REACT_APP_BACKEND_URL}`);
   const onSubmit = (data: RegisterValues): void => {
     axios
       .post(
